@@ -164,7 +164,8 @@ class DifferTest {
     @Test
     @DisplayName("generate когда произошла ошибка при парсинге файла JSON с форматированием plain")
     void generateExceptionJsonParsingPlainTest() {
-        var ex = assertThrows(RuntimeException.class, () -> Differ.generate("file1.json", "INCORRECT FILEPATH", "plain"));
+        var ex = assertThrows(RuntimeException.class,
+                () -> Differ.generate("file1.json", "INCORRECT FILEPATH", "plain"));
 
         assertTrue(ex.getMessage().contains("Неподдерживаемый формат файла"));
     }
@@ -203,7 +204,8 @@ class DifferTest {
     @Test
     @DisplayName("generate когда произошла ошибка при парсинге файла YML с форматированием plain")
     void generateExceptionYmlParsingPlainTest() {
-        var ex = assertThrows(RuntimeException.class, () -> Differ.generate("filepath1.yml", "INCORRECT FILEPATH", "plain"));
+        var ex = assertThrows(RuntimeException.class,
+                () -> Differ.generate("filepath1.yml", "INCORRECT FILEPATH", "plain"));
 
         assertTrue(ex.getMessage().contains("Неподдерживаемый формат файла"));
     }
@@ -346,7 +348,8 @@ class DifferTest {
     @Test
     @DisplayName("generate когда произошла ошибка при парсинге файла JSON с форматированием json")
     void generateExceptionJsonParsingJsonTest() {
-        var ex = assertThrows(RuntimeException.class, () -> Differ.generate("file1.json", "INCORRECT FILEPATH", "json"));
+        var ex = assertThrows(RuntimeException.class,
+                () -> Differ.generate("file1.json", "INCORRECT FILEPATH", "json"));
 
         assertTrue(ex.getMessage().contains("Неподдерживаемый формат файла"));
     }
@@ -489,7 +492,8 @@ class DifferTest {
     @Test
     @DisplayName("generate когда произошла ошибка при парсинге файла YML с форматированием json")
     void generateExceptionYmlParsingJsonTest() {
-        var ex = assertThrows(RuntimeException.class, () -> Differ.generate("filepath1.yml", "INCORRECT FILEPATH", "json"));
+        var ex = assertThrows(RuntimeException.class,
+                () -> Differ.generate("filepath1.yml", "INCORRECT FILEPATH", "json"));
 
         assertTrue(ex.getMessage().contains("Неподдерживаемый формат файла"));
     }
