@@ -139,8 +139,7 @@ class DifferTest {
     void generateDifferentJsonFilesPlainTest() {
         var result = Differ.generate("file1.json", "file2.json", "plain");
 
-        assertEquals("{\n"
-                + "Property 'chars2' was updated. From [complex value] to false\n"
+        assertEquals("Property 'chars2' was updated. From [complex value] to false\n"
                 + "Property 'checked' was updated. From false to true\n"
                 + "Property 'default' was updated. From null to [complex value]\n"
                 + "Property 'id' was updated. From 45 to null\n"
@@ -152,8 +151,7 @@ class DifferTest {
                 + "Property 'obj1' was added with value: [complex value]\n"
                 + "Property 'setting1' was updated. From Some value to Another value\n"
                 + "Property 'setting2' was updated. From 200 to 300\n"
-                + "Property 'setting3' was updated. From true to none\n"
-                + "}", result);
+                + "Property 'setting3' was updated. From true to none\n", result);
     }
 
     @Test
@@ -161,8 +159,7 @@ class DifferTest {
     void generateEqualsJsonFilesPlainTest() {
         var result = Differ.generate("file1.json", "file1.json", "plain");
 
-        assertEquals("{\n"
-                + "}", result);
+        assertEquals("", result);
     }
 
     @Test
@@ -179,8 +176,7 @@ class DifferTest {
     void generateDifferentYmlFilesPlainTest() {
         var result = Differ.generate("filepath1.yml", "filepath2.yml", "plain");
 
-        assertEquals("{\n"
-                + "Property 'chars2' was updated. From [complex value] to false\n"
+        assertEquals("Property 'chars2' was updated. From [complex value] to false\n"
                 + "Property 'checked' was updated. From false to true\n"
                 + "Property 'default' was updated. From null to [complex value]\n"
                 + "Property 'id' was updated. From 45 to null\n"
@@ -192,8 +188,7 @@ class DifferTest {
                 + "Property 'obj1' was added with value: [complex value]\n"
                 + "Property 'setting1' was updated. From Some value to Another value\n"
                 + "Property 'setting2' was updated. From 200 to 300\n"
-                + "Property 'setting3' was updated. From true to none\n"
-                + "}", result);
+                + "Property 'setting3' was updated. From true to none\n", result);
     }
 
     @Test
@@ -201,8 +196,7 @@ class DifferTest {
     void generateEqualsYmlFilesPlainTest() {
         var result = Differ.generate("filepath1.yml", "filepath1.yml", "plain");
 
-        assertEquals("{\n"
-                + "}", result);
+        assertEquals("", result);
     }
 
     @Test

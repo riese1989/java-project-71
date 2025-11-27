@@ -7,7 +7,7 @@ import java.util.Map;
 public final class Plain implements FormatterInterface {
     @Override
     public String format(List<Map<String, Object>> differences) {
-        var result = new StringBuilder("{\n");
+        var result = new StringBuilder();
 
         for (var diff : differences) {
             if ("unchanged".equals(diff.get("status"))) {
@@ -28,8 +28,6 @@ public final class Plain implements FormatterInterface {
                 default -> result.append("");
             }
         }
-
-        result.append("}");
 
         return result.toString();
     }
