@@ -3,7 +3,9 @@ package hexlet.code;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 class DifferTest {
     @Test
@@ -11,31 +13,31 @@ class DifferTest {
     void generateDifferentJsonFilesStylishTest() {
         var result = Differ.generate("file1.json", "file2.json");
 
-        assertEquals("{\n" +
-                "    chars1: [a, b, c]\n" +
-                "  - chars2: [d, e, f]\n" +
-                "  + chars2: false\n" +
-                "  - checked: false\n" +
-                "  + checked: true\n" +
-                "  - default: null\n" +
-                "  + default: [value1, value2]\n" +
-                "  - id: 45\n" +
-                "  + id: null\n" +
-                "  - key1: value1\n" +
-                "  + key2: value2\n" +
-                "    numbers1: [1, 2, 3, 4]\n" +
-                "  - numbers2: [2, 3, 4, 5]\n" +
-                "  + numbers2: [22, 33, 44, 55]\n" +
-                "  - numbers3: [3, 4, 5]\n" +
-                "  + numbers4: [4, 5, 6]\n" +
-                "  + obj1: {nestedKey=value, isNested=true}\n" +
-                "  - setting1: Some value\n" +
-                "  + setting1: Another value\n" +
-                "  - setting2: 200\n" +
-                "  + setting2: 300\n" +
-                "  - setting3: true\n" +
-                "  + setting3: none\n" +
-                "}", result);
+        assertEquals("{\n"
+                + "    chars1: [a, b, c]\n"
+                + "  - chars2: [d, e, f]\n"
+                + "  + chars2: false\n"
+                + "  - checked: false\n"
+                + "  + checked: true\n"
+                + "  - default: null\n"
+                + "  + default: [value1, value2]\n"
+                + "  - id: 45\n"
+                + "  + id: null\n"
+                + "  - key1: value1\n"
+                + "  + key2: value2\n"
+                + "    numbers1: [1, 2, 3, 4]\n"
+                + "  - numbers2: [2, 3, 4, 5]\n"
+                + "  + numbers2: [22, 33, 44, 55]\n"
+                + "  - numbers3: [3, 4, 5]\n"
+                + "  + numbers4: [4, 5, 6]\n"
+                + "  + obj1: {nestedKey=value, isNested=true}\n"
+                + "  - setting1: Some value\n"
+                + "  + setting1: Another value\n"
+                + "  - setting2: 200\n"
+                + "  + setting2: 300\n"
+                + "  - setting3: true\n"
+                + "  + setting3: none\n"
+                + "}", result);
     }
 
     @Test
@@ -43,26 +45,26 @@ class DifferTest {
     void generateEqualsJsonFilesStylishTest() {
         var result = Differ.generate("file1.json", "file1.json");
 
-        assertEquals("{\n" +
-                "    chars1: [a, b, c]\n" +
-                "    chars2: [d, e, f]\n" +
-                "    checked: false\n" +
-                "    default: null\n" +
-                "    id: 45\n" +
-                "    key1: value1\n" +
-                "    numbers1: [1, 2, 3, 4]\n" +
-                "    numbers2: [2, 3, 4, 5]\n" +
-                "    numbers3: [3, 4, 5]\n" +
-                "    setting1: Some value\n" +
-                "    setting2: 200\n" +
-                "    setting3: true\n" +
-                "}", result);
+        assertEquals("{\n"
+                + "    chars1: [a, b, c]\n"
+                + "    chars2: [d, e, f]\n"
+                + "    checked: false\n"
+                + "    default: null\n"
+                + "    id: 45\n"
+                + "    key1: value1\n"
+                + "    numbers1: [1, 2, 3, 4]\n"
+                + "    numbers2: [2, 3, 4, 5]\n"
+                + "    numbers3: [3, 4, 5]\n"
+                + "    setting1: Some value\n"
+                + "    setting2: 200\n"
+                + "    setting3: true\n"
+                + "}", result);
     }
 
     @Test
     @DisplayName("generate когда произошла ошибка при парсинге файла JSON с форматированием stylish")
     void generateExceptionJsonParsingStylishTest() {
-        var ex =  assertThrows(RuntimeException.class, () -> Differ.generate("file1.json", "INCORRECT FILEPATH"));
+        var ex = assertThrows(RuntimeException.class, () -> Differ.generate("file1.json", "INCORRECT FILEPATH"));
 
         assertTrue(ex.getMessage().contains("Неподдерживаемый формат файла"));
     }
@@ -72,31 +74,31 @@ class DifferTest {
     void generateDifferentYmlFilesStylishTest() {
         var result = Differ.generate("filepath1.yml", "filepath2.yml");
 
-        assertEquals("{\n" +
-                "    chars1: [a, b, c]\n" +
-                "  - chars2: [d, e, f]\n" +
-                "  + chars2: false\n" +
-                "  - checked: false\n" +
-                "  + checked: true\n" +
-                "  - default: null\n" +
-                "  + default: [value1, value2]\n" +
-                "  - id: 45\n" +
-                "  + id: null\n" +
-                "  - key1: value1\n" +
-                "  + key2: value2\n" +
-                "    numbers1: [1, 2, 3, 4]\n" +
-                "  - numbers2: [2, 3, 4, 5]\n" +
-                "  + numbers2: [22, 33, 44, 55]\n" +
-                "  - numbers3: [3, 4, 5]\n" +
-                "  + numbers4: [4, 5, 6]\n" +
-                "  + obj1: {nestedKey=value, isNested=true}\n" +
-                "  - setting1: Some value\n" +
-                "  + setting1: Another value\n" +
-                "  - setting2: 200\n" +
-                "  + setting2: 300\n" +
-                "  - setting3: true\n" +
-                "  + setting3: none\n" +
-                "}", result);
+        assertEquals("{\n"
+                + "    chars1: [a, b, c]\n"
+                + "  - chars2: [d, e, f]\n"
+                + "  + chars2: false\n"
+                + "  - checked: false\n"
+                + "  + checked: true\n"
+                + "  - default: null\n"
+                + "  + default: [value1, value2]\n"
+                + "  - id: 45\n"
+                + "  + id: null\n"
+                + "  - key1: value1\n"
+                + "  + key2: value2\n"
+                + "    numbers1: [1, 2, 3, 4]\n"
+                + "  - numbers2: [2, 3, 4, 5]\n"
+                + "  + numbers2: [22, 33, 44, 55]\n"
+                + "  - numbers3: [3, 4, 5]\n"
+                + "  + numbers4: [4, 5, 6]\n"
+                + "  + obj1: {nestedKey=value, isNested=true}\n"
+                + "  - setting1: Some value\n"
+                + "  + setting1: Another value\n"
+                + "  - setting2: 200\n"
+                + "  + setting2: 300\n"
+                + "  - setting3: true\n"
+                + "  + setting3: none\n"
+                + "}", result);
     }
 
     @Test
@@ -104,26 +106,26 @@ class DifferTest {
     void generateEqualsYmlFilesStylishTest() {
         var result = Differ.generate("filepath1.yml", "filepath1.yml");
 
-        assertEquals("{\n" +
-                "    chars1: [a, b, c]\n" +
-                "    chars2: [d, e, f]\n" +
-                "    checked: false\n" +
-                "    default: null\n" +
-                "    id: 45\n" +
-                "    key1: value1\n" +
-                "    numbers1: [1, 2, 3, 4]\n" +
-                "    numbers2: [2, 3, 4, 5]\n" +
-                "    numbers3: [3, 4, 5]\n" +
-                "    setting1: Some value\n" +
-                "    setting2: 200\n" +
-                "    setting3: true\n" +
-                "}", result);
+        assertEquals("{\n"
+                + "    chars1: [a, b, c]\n"
+                + "    chars2: [d, e, f]\n"
+                + "    checked: false\n"
+                + "    default: null\n"
+                + "    id: 45\n"
+                + "    key1: value1\n"
+                + "    numbers1: [1, 2, 3, 4]\n"
+                + "    numbers2: [2, 3, 4, 5]\n"
+                + "    numbers3: [3, 4, 5]\n"
+                + "    setting1: Some value\n"
+                + "    setting2: 200\n"
+                + "    setting3: true\n"
+                + "}", result);
     }
 
     @Test
     @DisplayName("generate когда произошла ошибка при парсинге файла YML с форматированием stylish")
     void generateExceptionYmlParsingStylishTest() {
-        var ex =  assertThrows(RuntimeException.class, () -> Differ.generate("filepath1.yml", "INCORRECT FILEPATH"));
+        var ex = assertThrows(RuntimeException.class, () -> Differ.generate("filepath1.yml", "INCORRECT FILEPATH"));
 
         assertTrue(ex.getMessage().contains("Неподдерживаемый формат файла"));
     }
@@ -133,21 +135,21 @@ class DifferTest {
     void generateDifferentJsonFilesPlainTest() {
         var result = Differ.generate("file1.json", "file2.json", "plain");
 
-        assertEquals("{\n" +
-                "Property 'chars2' was updated. From [complex value] to false\n" +
-                "Property 'checked' was updated. From false to true\n" +
-                "Property 'default' was updated. From null to [complex value]\n" +
-                "Property 'id' was updated. From 45 to null\n" +
-                "Property 'key1' was removed\n" +
-                "Property 'key2' was added with value: value2\n" +
-                "Property 'numbers2' was updated. From [complex value] to [complex value]\n" +
-                "Property 'numbers3' was removed\n" +
-                "Property 'numbers4' was added with value: [complex value]\n" +
-                "Property 'obj1' was added with value: [complex value]\n" +
-                "Property 'setting1' was updated. From Some value to Another value\n" +
-                "Property 'setting2' was updated. From 200 to 300\n" +
-                "Property 'setting3' was updated. From true to none\n" +
-                "}", result);
+        assertEquals("{\n"
+                + "Property 'chars2' was updated. From [complex value] to false\n"
+                + "Property 'checked' was updated. From false to true\n"
+                + "Property 'default' was updated. From null to [complex value]\n"
+                + "Property 'id' was updated. From 45 to null\n"
+                + "Property 'key1' was removed\n"
+                + "Property 'key2' was added with value: value2\n"
+                + "Property 'numbers2' was updated. From [complex value] to [complex value]\n"
+                + "Property 'numbers3' was removed\n"
+                + "Property 'numbers4' was added with value: [complex value]\n"
+                + "Property 'obj1' was added with value: [complex value]\n"
+                + "Property 'setting1' was updated. From Some value to Another value\n"
+                + "Property 'setting2' was updated. From 200 to 300\n"
+                + "Property 'setting3' was updated. From true to none\n"
+                + "}", result);
     }
 
     @Test
@@ -155,14 +157,14 @@ class DifferTest {
     void generateEqualsJsonFilesPlainTest() {
         var result = Differ.generate("file1.json", "file1.json", "plain");
 
-        assertEquals("{\n" +
-                "}", result);
+        assertEquals("{\n"
+                + "}", result);
     }
 
     @Test
     @DisplayName("generate когда произошла ошибка при парсинге файла JSON с форматированием plain")
     void generateExceptionJsonParsingPlainTest() {
-        var ex =  assertThrows(RuntimeException.class, () -> Differ.generate("file1.json", "INCORRECT FILEPATH", "plain"));
+        var ex = assertThrows(RuntimeException.class, () -> Differ.generate("file1.json", "INCORRECT FILEPATH", "plain"));
 
         assertTrue(ex.getMessage().contains("Неподдерживаемый формат файла"));
     }
@@ -172,21 +174,21 @@ class DifferTest {
     void generateDifferentYmlFilesPlainTest() {
         var result = Differ.generate("filepath1.yml", "filepath2.yml", "plain");
 
-        assertEquals("{\n" +
-                "Property 'chars2' was updated. From [complex value] to false\n" +
-                "Property 'checked' was updated. From false to true\n" +
-                "Property 'default' was updated. From null to [complex value]\n" +
-                "Property 'id' was updated. From 45 to null\n" +
-                "Property 'key1' was removed\n" +
-                "Property 'key2' was added with value: value2\n" +
-                "Property 'numbers2' was updated. From [complex value] to [complex value]\n" +
-                "Property 'numbers3' was removed\n" +
-                "Property 'numbers4' was added with value: [complex value]\n" +
-                "Property 'obj1' was added with value: [complex value]\n" +
-                "Property 'setting1' was updated. From Some value to Another value\n" +
-                "Property 'setting2' was updated. From 200 to 300\n" +
-                "Property 'setting3' was updated. From true to none\n" +
-                "}", result);
+        assertEquals("{\n"
+                + "Property 'chars2' was updated. From [complex value] to false\n"
+                + "Property 'checked' was updated. From false to true\n"
+                + "Property 'default' was updated. From null to [complex value]\n"
+                + "Property 'id' was updated. From 45 to null\n"
+                + "Property 'key1' was removed\n"
+                + "Property 'key2' was added with value: value2\n"
+                + "Property 'numbers2' was updated. From [complex value] to [complex value]\n"
+                + "Property 'numbers3' was removed\n"
+                + "Property 'numbers4' was added with value: [complex value]\n"
+                + "Property 'obj1' was added with value: [complex value]\n"
+                + "Property 'setting1' was updated. From Some value to Another value\n"
+                + "Property 'setting2' was updated. From 200 to 300\n"
+                + "Property 'setting3' was updated. From true to none\n"
+                + "}", result);
     }
 
     @Test
@@ -194,14 +196,14 @@ class DifferTest {
     void generateEqualsYmlFilesPlainTest() {
         var result = Differ.generate("filepath1.yml", "filepath1.yml", "plain");
 
-        assertEquals("{\n" +
-                "}", result);
+        assertEquals("{\n"
+                + "}", result);
     }
 
     @Test
     @DisplayName("generate когда произошла ошибка при парсинге файла YML с форматированием plain")
     void generateExceptionYmlParsingPlainTest() {
-        var ex =  assertThrows(RuntimeException.class, () -> Differ.generate("filepath1.yml", "INCORRECT FILEPATH", "plain"));
+        var ex = assertThrows(RuntimeException.class, () -> Differ.generate("filepath1.yml", "INCORRECT FILEPATH", "plain"));
 
         assertTrue(ex.getMessage().contains("Неподдерживаемый формат файла"));
     }
@@ -211,78 +213,78 @@ class DifferTest {
     void generateDifferentJsonFilesJsonTest() {
         var result = Differ.generate("file1.json", "file2.json", "json");
 
-        assertEquals("[ {\n" +
-                "  \"key\" : \"chars1\",\n" +
-                "  \"oldValue\" : [ \"a\", \"b\", \"c\" ],\n" +
-                "  \"status\" : \"unchanged\"\n" +
-                "}, {\n" +
-                "  \"key\" : \"chars2\",\n" +
-                "  \"oldValue\" : [ \"d\", \"e\", \"f\" ],\n" +
-                "  \"newValue\" : false,\n" +
-                "  \"status\" : \"updated\"\n" +
-                "}, {\n" +
-                "  \"key\" : \"checked\",\n" +
-                "  \"oldValue\" : false,\n" +
-                "  \"newValue\" : true,\n" +
-                "  \"status\" : \"updated\"\n" +
-                "}, {\n" +
-                "  \"key\" : \"default\",\n" +
-                "  \"oldValue\" : null,\n" +
-                "  \"newValue\" : [ \"value1\", \"value2\" ],\n" +
-                "  \"status\" : \"updated\"\n" +
-                "}, {\n" +
-                "  \"key\" : \"id\",\n" +
-                "  \"oldValue\" : 45,\n" +
-                "  \"newValue\" : null,\n" +
-                "  \"status\" : \"updated\"\n" +
-                "}, {\n" +
-                "  \"key\" : \"key1\",\n" +
-                "  \"oldValue\" : \"value1\",\n" +
-                "  \"status\" : \"removed\"\n" +
-                "}, {\n" +
-                "  \"key\" : \"key2\",\n" +
-                "  \"newValue\" : \"value2\",\n" +
-                "  \"status\" : \"added\"\n" +
-                "}, {\n" +
-                "  \"key\" : \"numbers1\",\n" +
-                "  \"oldValue\" : [ 1, 2, 3, 4 ],\n" +
-                "  \"status\" : \"unchanged\"\n" +
-                "}, {\n" +
-                "  \"key\" : \"numbers2\",\n" +
-                "  \"oldValue\" : [ 2, 3, 4, 5 ],\n" +
-                "  \"newValue\" : [ 22, 33, 44, 55 ],\n" +
-                "  \"status\" : \"updated\"\n" +
-                "}, {\n" +
-                "  \"key\" : \"numbers3\",\n" +
-                "  \"oldValue\" : [ 3, 4, 5 ],\n" +
-                "  \"status\" : \"removed\"\n" +
-                "}, {\n" +
-                "  \"key\" : \"numbers4\",\n" +
-                "  \"newValue\" : [ 4, 5, 6 ],\n" +
-                "  \"status\" : \"added\"\n" +
-                "}, {\n" +
-                "  \"key\" : \"obj1\",\n" +
-                "  \"newValue\" : {\n" +
-                "    \"nestedKey\" : \"value\",\n" +
-                "    \"isNested\" : true\n" +
-                "  },\n" +
-                "  \"status\" : \"added\"\n" +
-                "}, {\n" +
-                "  \"key\" : \"setting1\",\n" +
-                "  \"oldValue\" : \"Some value\",\n" +
-                "  \"newValue\" : \"Another value\",\n" +
-                "  \"status\" : \"updated\"\n" +
-                "}, {\n" +
-                "  \"key\" : \"setting2\",\n" +
-                "  \"oldValue\" : 200,\n" +
-                "  \"newValue\" : 300,\n" +
-                "  \"status\" : \"updated\"\n" +
-                "}, {\n" +
-                "  \"key\" : \"setting3\",\n" +
-                "  \"oldValue\" : true,\n" +
-                "  \"newValue\" : \"none\",\n" +
-                "  \"status\" : \"updated\"\n" +
-                "} ]", result);
+        assertEquals("[ {\n"
+                + "  \"key\" : \"chars1\",\n"
+                + "  \"oldValue\" : [ \"a\", \"b\", \"c\" ],\n"
+                + "  \"status\" : \"unchanged\"\n"
+                + "}, {\n"
+                + "  \"key\" : \"chars2\",\n"
+                + "  \"oldValue\" : [ \"d\", \"e\", \"f\" ],\n"
+                + "  \"newValue\" : false,\n"
+                + "  \"status\" : \"updated\"\n"
+                + "}, {\n"
+                + "  \"key\" : \"checked\",\n"
+                + "  \"oldValue\" : false,\n"
+                + "  \"newValue\" : true,\n"
+                + "  \"status\" : \"updated\"\n"
+                + "}, {\n"
+                + "  \"key\" : \"default\",\n"
+                + "  \"oldValue\" : null,\n"
+                + "  \"newValue\" : [ \"value1\", \"value2\" ],\n"
+                + "  \"status\" : \"updated\"\n"
+                + "}, {\n"
+                + "  \"key\" : \"id\",\n"
+                + "  \"oldValue\" : 45,\n"
+                + "  \"newValue\" : null,\n"
+                + "  \"status\" : \"updated\"\n"
+                + "}, {\n"
+                + "  \"key\" : \"key1\",\n"
+                + "  \"oldValue\" : \"value1\",\n"
+                + "  \"status\" : \"removed\"\n"
+                + "}, {\n"
+                + "  \"key\" : \"key2\",\n"
+                + "  \"newValue\" : \"value2\",\n"
+                + "  \"status\" : \"added\"\n"
+                + "}, {\n"
+                + "  \"key\" : \"numbers1\",\n"
+                + "  \"oldValue\" : [ 1, 2, 3, 4 ],\n"
+                + "  \"status\" : \"unchanged\"\n"
+                + "}, {\n"
+                + "  \"key\" : \"numbers2\",\n"
+                + "  \"oldValue\" : [ 2, 3, 4, 5 ],\n"
+                + "  \"newValue\" : [ 22, 33, 44, 55 ],\n"
+                + "  \"status\" : \"updated\"\n"
+                + "}, {\n"
+                + "  \"key\" : \"numbers3\",\n"
+                + "  \"oldValue\" : [ 3, 4, 5 ],\n"
+                + "  \"status\" : \"removed\"\n"
+                + "}, {\n"
+                + "  \"key\" : \"numbers4\",\n"
+                + "  \"newValue\" : [ 4, 5, 6 ],\n"
+                + "  \"status\" : \"added\"\n"
+                + "}, {\n"
+                + "  \"key\" : \"obj1\",\n"
+                + "  \"newValue\" : {\n"
+                + "    \"nestedKey\" : \"value\",\n"
+                + "    \"isNested\" : true\n"
+                + "  },\n"
+                + "  \"status\" : \"added\"\n"
+                + "}, {\n"
+                + "  \"key\" : \"setting1\",\n"
+                + "  \"oldValue\" : \"Some value\",\n"
+                + "  \"newValue\" : \"Another value\",\n"
+                + "  \"status\" : \"updated\"\n"
+                + "}, {\n"
+                + "  \"key\" : \"setting2\",\n"
+                + "  \"oldValue\" : 200,\n"
+                + "  \"newValue\" : 300,\n"
+                + "  \"status\" : \"updated\"\n"
+                + "}, {\n"
+                + "  \"key\" : \"setting3\",\n"
+                + "  \"oldValue\" : true,\n"
+                + "  \"newValue\" : \"none\",\n"
+                + "  \"status\" : \"updated\"\n"
+                + "} ]", result);
     }
 
     @Test
@@ -290,61 +292,61 @@ class DifferTest {
     void generateEqualsJsonFilesJsonTest() {
         var result = Differ.generate("file1.json", "file1.json", "json");
 
-        assertEquals("{[ {\n" +
-                "  \"key\" : \"chars1\",\n" +
-                "  \"oldValue\" : [ \"a\", \"b\", \"c\" ],\n" +
-                "  \"status\" : \"unchanged\"\n" +
-                "}, {\n" +
-                "  \"key\" : \"chars2\",\n" +
-                "  \"oldValue\" : [ \"d\", \"e\", \"f\" ],\n" +
-                "  \"status\" : \"unchanged\"\n" +
-                "}, {\n" +
-                "  \"key\" : \"checked\",\n" +
-                "  \"oldValue\" : false,\n" +
-                "  \"status\" : \"unchanged\"\n" +
-                "}, {\n" +
-                "  \"key\" : \"default\",\n" +
-                "  \"oldValue\" : null,\n" +
-                "  \"status\" : \"unchanged\"\n" +
-                "}, {\n" +
-                "  \"key\" : \"id\",\n" +
-                "  \"oldValue\" : 45,\n" +
-                "  \"status\" : \"unchanged\"\n" +
-                "}, {\n" +
-                "  \"key\" : \"key1\",\n" +
-                "  \"oldValue\" : \"value1\",\n" +
-                "  \"status\" : \"unchanged\"\n" +
-                "}, {\n" +
-                "  \"key\" : \"numbers1\",\n" +
-                "  \"oldValue\" : [ 1, 2, 3, 4 ],\n" +
-                "  \"status\" : \"unchanged\"\n" +
-                "}, {\n" +
-                "  \"key\" : \"numbers2\",\n" +
-                "  \"oldValue\" : [ 2, 3, 4, 5 ],\n" +
-                "  \"status\" : \"unchanged\"\n" +
-                "}, {\n" +
-                "  \"key\" : \"numbers3\",\n" +
-                "  \"oldValue\" : [ 3, 4, 5 ],\n" +
-                "  \"status\" : \"unchanged\"\n" +
-                "}, {\n" +
-                "  \"key\" : \"setting1\",\n" +
-                "  \"oldValue\" : \"Some value\",\n" +
-                "  \"status\" : \"unchanged\"\n" +
-                "}, {\n" +
-                "  \"key\" : \"setting2\",\n" +
-                "  \"oldValue\" : 200,\n" +
-                "  \"status\" : \"unchanged\"\n" +
-                "}, {\n" +
-                "  \"key\" : \"setting3\",\n" +
-                "  \"oldValue\" : true,\n" +
-                "  \"status\" : \"unchanged\"\n" +
-                "} ]}", result);
+        assertEquals("{[ {\n"
+                + "  \"key\" : \"chars1\",\n"
+                + "  \"oldValue\" : [ \"a\", \"b\", \"c\" ],\n"
+                + "  \"status\" : \"unchanged\"\n"
+                + "}, {\n"
+                + "  \"key\" : \"chars2\",\n"
+                + "  \"oldValue\" : [ \"d\", \"e\", \"f\" ],\n"
+                + "  \"status\" : \"unchanged\"\n"
+                + "}, {\n"
+                + "  \"key\" : \"checked\",\n"
+                + "  \"oldValue\" : false,\n"
+                + "  \"status\" : \"unchanged\"\n"
+                + "}, {\n"
+                + "  \"key\" : \"default\",\n"
+                + "  \"oldValue\" : null,\n"
+                + "  \"status\" : \"unchanged\"\n"
+                + "}, {\n"
+                + "  \"key\" : \"id\",\n"
+                + "  \"oldValue\" : 45,\n"
+                + "  \"status\" : \"unchanged\"\n"
+                + "}, {\n"
+                + "  \"key\" : \"key1\",\n"
+                + "  \"oldValue\" : \"value1\",\n"
+                + "  \"status\" : \"unchanged\"\n"
+                + "}, {\n"
+                + "  \"key\" : \"numbers1\",\n"
+                + "  \"oldValue\" : [ 1, 2, 3, 4 ],\n"
+                + "  \"status\" : \"unchanged\"\n"
+                + "}, {\n"
+                + "  \"key\" : \"numbers2\",\n"
+                + "  \"oldValue\" : [ 2, 3, 4, 5 ],\n"
+                + "  \"status\" : \"unchanged\"\n"
+                + "}, {\n"
+                + "  \"key\" : \"numbers3\",\n"
+                + "  \"oldValue\" : [ 3, 4, 5 ],\n"
+                + "  \"status\" : \"unchanged\"\n"
+                + "}, {\n"
+                + "  \"key\" : \"setting1\",\n"
+                + "  \"oldValue\" : \"Some value\",\n"
+                + "  \"status\" : \"unchanged\"\n"
+                + "}, {\n"
+                + "  \"key\" : \"setting2\",\n"
+                + "  \"oldValue\" : 200,\n"
+                + "  \"status\" : \"unchanged\"\n"
+                + "}, {\n"
+                + "  \"key\" : \"setting3\",\n"
+                + "  \"oldValue\" : true,\n"
+                + "  \"status\" : \"unchanged\"\n"
+                + "} ]}", result);
     }
 
     @Test
     @DisplayName("generate когда произошла ошибка при парсинге файла JSON с форматированием json")
     void generateExceptionJsonParsingJsonTest() {
-        var ex =  assertThrows(RuntimeException.class, () -> Differ.generate("file1.json", "INCORRECT FILEPATH", "json"));
+        var ex = assertThrows(RuntimeException.class, () -> Differ.generate("file1.json", "INCORRECT FILEPATH", "json"));
 
         assertTrue(ex.getMessage().contains("Неподдерживаемый формат файла"));
     }
@@ -354,78 +356,78 @@ class DifferTest {
     void generateDifferentYmlFilesJsonTest() {
         var result = Differ.generate("filepath1.yml", "filepath2.yml", "json");
 
-        assertEquals("[ {\n" +
-                "  \"key\" : \"chars1\",\n" +
-                "  \"oldValue\" : [ \"a\", \"b\", \"c\" ],\n" +
-                "  \"status\" : \"unchanged\"\n" +
-                "}, {\n" +
-                "  \"key\" : \"chars2\",\n" +
-                "  \"oldValue\" : [ \"d\", \"e\", \"f\" ],\n" +
-                "  \"newValue\" : false,\n" +
-                "  \"status\" : \"updated\"\n" +
-                "}, {\n" +
-                "  \"key\" : \"checked\",\n" +
-                "  \"oldValue\" : false,\n" +
-                "  \"newValue\" : true,\n" +
-                "  \"status\" : \"updated\"\n" +
-                "}, {\n" +
-                "  \"key\" : \"default\",\n" +
-                "  \"oldValue\" : null,\n" +
-                "  \"newValue\" : [ \"value1\", \"value2\" ],\n" +
-                "  \"status\" : \"updated\"\n" +
-                "}, {\n" +
-                "  \"key\" : \"id\",\n" +
-                "  \"oldValue\" : 45,\n" +
-                "  \"newValue\" : null,\n" +
-                "  \"status\" : \"updated\"\n" +
-                "}, {\n" +
-                "  \"key\" : \"key1\",\n" +
-                "  \"oldValue\" : \"value1\",\n" +
-                "  \"status\" : \"removed\"\n" +
-                "}, {\n" +
-                "  \"key\" : \"key2\",\n" +
-                "  \"newValue\" : \"value2\",\n" +
-                "  \"status\" : \"added\"\n" +
-                "}, {\n" +
-                "  \"key\" : \"numbers1\",\n" +
-                "  \"oldValue\" : [ 1, 2, 3, 4 ],\n" +
-                "  \"status\" : \"unchanged\"\n" +
-                "}, {\n" +
-                "  \"key\" : \"numbers2\",\n" +
-                "  \"oldValue\" : [ 2, 3, 4, 5 ],\n" +
-                "  \"newValue\" : [ 22, 33, 44, 55 ],\n" +
-                "  \"status\" : \"updated\"\n" +
-                "}, {\n" +
-                "  \"key\" : \"numbers3\",\n" +
-                "  \"oldValue\" : [ 3, 4, 5 ],\n" +
-                "  \"status\" : \"removed\"\n" +
-                "}, {\n" +
-                "  \"key\" : \"numbers4\",\n" +
-                "  \"newValue\" : [ 4, 5, 6 ],\n" +
-                "  \"status\" : \"added\"\n" +
-                "}, {\n" +
-                "  \"key\" : \"obj1\",\n" +
-                "  \"newValue\" : {\n" +
-                "    \"nestedKey\" : \"value\",\n" +
-                "    \"isNested\" : true\n" +
-                "  },\n" +
-                "  \"status\" : \"added\"\n" +
-                "}, {\n" +
-                "  \"key\" : \"setting1\",\n" +
-                "  \"oldValue\" : \"Some value\",\n" +
-                "  \"newValue\" : \"Another value\",\n" +
-                "  \"status\" : \"updated\"\n" +
-                "}, {\n" +
-                "  \"key\" : \"setting2\",\n" +
-                "  \"oldValue\" : 200,\n" +
-                "  \"newValue\" : 300,\n" +
-                "  \"status\" : \"updated\"\n" +
-                "}, {\n" +
-                "  \"key\" : \"setting3\",\n" +
-                "  \"oldValue\" : true,\n" +
-                "  \"newValue\" : \"none\",\n" +
-                "  \"status\" : \"updated\"\n" +
-                "} ]", result);
+        assertEquals("[ {\n"
+                + "  \"key\" : \"chars1\",\n"
+                + "  \"oldValue\" : [ \"a\", \"b\", \"c\" ],\n"
+                + "  \"status\" : \"unchanged\"\n"
+                + "}, {\n"
+                + "  \"key\" : \"chars2\",\n"
+                + "  \"oldValue\" : [ \"d\", \"e\", \"f\" ],\n"
+                + "  \"newValue\" : false,\n"
+                + "  \"status\" : \"updated\"\n"
+                + "}, {\n"
+                + "  \"key\" : \"checked\",\n"
+                + "  \"oldValue\" : false,\n"
+                + "  \"newValue\" : true,\n"
+                + "  \"status\" : \"updated\"\n"
+                + "}, {\n"
+                + "  \"key\" : \"default\",\n"
+                + "  \"oldValue\" : null,\n"
+                + "  \"newValue\" : [ \"value1\", \"value2\" ],\n"
+                + "  \"status\" : \"updated\"\n"
+                + "}, {\n"
+                + "  \"key\" : \"id\",\n"
+                + "  \"oldValue\" : 45,\n"
+                + "  \"newValue\" : null,\n"
+                + "  \"status\" : \"updated\"\n"
+                + "}, {\n"
+                + "  \"key\" : \"key1\",\n"
+                + "  \"oldValue\" : \"value1\",\n"
+                + "  \"status\" : \"removed\"\n"
+                + "}, {\n"
+                + "  \"key\" : \"key2\",\n"
+                + "  \"newValue\" : \"value2\",\n"
+                + "  \"status\" : \"added\"\n"
+                + "}, {\n"
+                + "  \"key\" : \"numbers1\",\n"
+                + "  \"oldValue\" : [ 1, 2, 3, 4 ],\n"
+                + "  \"status\" : \"unchanged\"\n"
+                + "}, {\n"
+                + "  \"key\" : \"numbers2\",\n"
+                + "  \"oldValue\" : [ 2, 3, 4, 5 ],\n"
+                + "  \"newValue\" : [ 22, 33, 44, 55 ],\n"
+                + "  \"status\" : \"updated\"\n"
+                + "}, {\n"
+                + "  \"key\" : \"numbers3\",\n"
+                + "  \"oldValue\" : [ 3, 4, 5 ],\n"
+                + "  \"status\" : \"removed\"\n"
+                + "}, {\n"
+                + "  \"key\" : \"numbers4\",\n"
+                + "  \"newValue\" : [ 4, 5, 6 ],\n"
+                + "  \"status\" : \"added\"\n"
+                + "}, {\n"
+                + "  \"key\" : \"obj1\",\n"
+                + "  \"newValue\" : {\n"
+                + "    \"nestedKey\" : \"value\",\n"
+                + "    \"isNested\" : true\n"
+                + "  },\n"
+                + "  \"status\" : \"added\"\n"
+                + "}, {\n"
+                + "  \"key\" : \"setting1\",\n"
+                + "  \"oldValue\" : \"Some value\",\n"
+                + "  \"newValue\" : \"Another value\",\n"
+                + "  \"status\" : \"updated\"\n"
+                + "}, {\n"
+                + "  \"key\" : \"setting2\",\n"
+                + "  \"oldValue\" : 200,\n"
+                + "  \"newValue\" : 300,\n"
+                + "  \"status\" : \"updated\"\n"
+                + "}, {\n"
+                + "  \"key\" : \"setting3\",\n"
+                + "  \"oldValue\" : true,\n"
+                + "  \"newValue\" : \"none\",\n"
+                + "  \"status\" : \"updated\"\n"
+                + "} ]", result);
     }
 
     @Test
@@ -433,63 +435,62 @@ class DifferTest {
     void generateEqualsYmlFilesJsonTest() {
         var result = Differ.generate("filepath1.yml", "filepath1.yml", "json");
 
-        assertEquals("[ {\n" +
-                "  \"key\" : \"chars1\",\n" +
-                "  \"oldValue\" : [ \"a\", \"b\", \"c\" ],\n" +
-                "  \"status\" : \"unchanged\"\n" +
-                "}, {\n" +
-                "  \"key\" : \"chars2\",\n" +
-                "  \"oldValue\" : [ \"d\", \"e\", \"f\" ],\n" +
-                "  \"status\" : \"unchanged\"\n" +
-                "}, {\n" +
-                "  \"key\" : \"checked\",\n" +
-                "  \"oldValue\" : false,\n" +
-                "  \"status\" : \"unchanged\"\n" +
-                "}, {\n" +
-                "  \"key\" : \"default\",\n" +
-                "  \"oldValue\" : null,\n" +
-                "  \"status\" : \"unchanged\"\n" +
-                "}, {\n" +
-                "  \"key\" : \"id\",\n" +
-                "  \"oldValue\" : 45,\n" +
-                "  \"status\" : \"unchanged\"\n" +
-                "}, {\n" +
-                "  \"key\" : \"key1\",\n" +
-                "  \"oldValue\" : \"value1\",\n" +
-                "  \"status\" : \"unchanged\"\n" +
-                "}, {\n" +
-                "  \"key\" : \"numbers1\",\n" +
-                "  \"oldValue\" : [ 1, 2, 3, 4 ],\n" +
-                "  \"status\" : \"unchanged\"\n" +
-                "}, {\n" +
-                "  \"key\" : \"numbers2\",\n" +
-                "  \"oldValue\" : [ 2, 3, 4, 5 ],\n" +
-                "  \"status\" : \"unchanged\"\n" +
-                "}, {\n" +
-                "  \"key\" : \"numbers3\",\n" +
-                "  \"oldValue\" : [ 3, 4, 5 ],\n" +
-                "  \"status\" : \"unchanged\"\n" +
-                "}, {\n" +
-                "  \"key\" : \"setting1\",\n" +
-                "  \"oldValue\" : \"Some value\",\n" +
-                "  \"status\" : \"unchanged\"\n" +
-                "}, {\n" +
-                "  \"key\" : \"setting2\",\n" +
-                "  \"oldValue\" : 200,\n" +
-                "  \"status\" : \"unchanged\"\n" +
-                "}, {\n" +
-                "  \"key\" : \"setting3\",\n" +
-                "  \"oldValue\" : true,\n" +
-                "  \"status\" : \"unchanged\"\n" +
-                "} ]", result);
+        assertEquals("[ {\n"
+                + "  \"key\" : \"chars1\",\n"
+                + "  \"oldValue\" : [ \"a\", \"b\", \"c\" ],\n"
+                + "  \"status\" : \"unchanged\"\n"
+                + "}, {\n"
+                + "  \"key\" : \"chars2\",\n"
+                + "  \"oldValue\" : [ \"d\", \"e\", \"f\" ],\n"
+                + "  \"status\" : \"unchanged\"\n"
+                + "}, {\n"
+                + "  \"key\" : \"checked\",\n"
+                + "  \"oldValue\" : false,\n"
+                + "  \"status\" : \"unchanged\"\n"
+                + "}, {\n"
+                + "  \"key\" : \"default\",\n"
+                + "  \"oldValue\" : null,\n"
+                + "  \"status\" : \"unchanged\"\n"
+                + "}, {\n"
+                + "  \"key\" : \"id\",\n"
+                + "  \"oldValue\" : 45,\n"
+                + "  \"status\" : \"unchanged\"\n"
+                + "}, {\n"
+                + "  \"key\" : \"key1\",\n"
+                + "  \"oldValue\" : \"value1\",\n"
+                + "  \"status\" : \"unchanged\"\n"
+                + "}, {\n"
+                + "  \"key\" : \"numbers1\",\n"
+                + "  \"oldValue\" : [ 1, 2, 3, 4 ],\n"
+                + "  \"status\" : \"unchanged\"\n"
+                + "}, {\n"
+                + "  \"key\" : \"numbers2\",\n"
+                + "  \"oldValue\" : [ 2, 3, 4, 5 ],\n"
+                + "  \"status\" : \"unchanged\"\n"
+                + "}, {\n"
+                + "  \"key\" : \"numbers3\",\n"
+                + "  \"oldValue\" : [ 3, 4, 5 ],\n"
+                + "  \"status\" : \"unchanged\"\n"
+                + "}, {\n"
+                + "  \"key\" : \"setting1\",\n"
+                + "  \"oldValue\" : \"Some value\",\n"
+                + "  \"status\" : \"unchanged\"\n"
+                + "}, {\n"
+                + "  \"key\" : \"setting2\",\n"
+                + "  \"oldValue\" : 200,\n"
+                + "  \"status\" : \"unchanged\"\n"
+                + "}, {\n"
+                + "  \"key\" : \"setting3\",\n"
+                + "  \"oldValue\" : true,\n"
+                + "  \"status\" : \"unchanged\"\n"
+                + "} ]", result);
     }
 
     @Test
     @DisplayName("generate когда произошла ошибка при парсинге файла YML с форматированием json")
     void generateExceptionYmlParsingJsonTest() {
-        var ex =  assertThrows(RuntimeException.class, () -> Differ.generate("filepath1.yml", "INCORRECT FILEPATH", "json"));
+        var ex = assertThrows(RuntimeException.class, () -> Differ.generate("filepath1.yml", "INCORRECT FILEPATH", "json"));
 
         assertTrue(ex.getMessage().contains("Неподдерживаемый формат файла"));
     }
-
 }

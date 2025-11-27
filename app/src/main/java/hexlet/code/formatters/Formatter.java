@@ -4,7 +4,7 @@ import java.util.Map;
 
 import static java.util.Optional.ofNullable;
 
-public class Formatter {
+public final class Formatter {
 
     public FormatterInterface getFormatter(String nameFormatter) {
         var formaterMap = Map.of("stylish", new Stylish(), "plain", new Plain(), "json", new Json());
