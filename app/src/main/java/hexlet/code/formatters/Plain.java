@@ -29,15 +29,20 @@ public final class Plain implements FormatterInterface {
             }
         }
 
-        return result.toString();
+        return result.toString().trim();
     }
 
     private String getValue(Object data) {
         if (data == null) {
             return "null";
         }
+
         if (data instanceof Object[] || data instanceof Map || data instanceof Collection) {
             return "[complex value]";
+        }
+
+        if (data instanceof String) {
+            return "'" + data + "'";
         }
 
         return data.toString();
