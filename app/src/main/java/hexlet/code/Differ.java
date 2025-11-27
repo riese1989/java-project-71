@@ -1,48 +1,53 @@
 package hexlet.code;
 
 
-import java.util.HashMap;
-import java.util.Map;
-import java.util.TreeMap;
+import hexlet.code.formatters.Formatter;
+
+import java.util.*;
 
 public class Differ {
+
     public static String generate(String filePath1, String filePath2) {
+        return generate(filePath1, filePath2, "stylish");
+    }
+
+    public static String generate(String filePath1, String filePath2, String format) {
         var map1 = Parser.parse(filePath1);
         var map2 = Parser.parse(filePath2);
-        var mergedMap = new HashMap<>(Map.copyOf(map1));
-        var stringBuilder = new StringBuilder("{");
+        var formatter = new Formatter().getFormatter(format);
 
-        mergedMap.putAll(map2);
+        List<Map<String, Object>> difference = differ(map1, map2);
 
-        Map<String, Object> sortedMap = new TreeMap<>(mergedMap);
-
-        for (Map.Entry<String, Object> entry : sortedMap.entrySet()) {
-            var key = entry.getKey();
-            var valueMap1 = map1.get(key);
-            var valueMap2 = map2.get(key);
-
-            if (valueMap1 == null) {
-                stringBuilder.append("\n + %s:%s".formatted(key, valueMap2));
-
-                continue;
-            }
-
-            if (valueMap2 == null) {
-                stringBuilder.append("\n - %s:%s".formatted(key, valueMap1));
-
-                continue;
-            }
-
-            if (valueMap1.equals(valueMap2)) {
-                stringBuilder.append("\n   %s:%s".formatted(key, valueMap1));
-            } else {
-                stringBuilder.append("\n - %s:%s".formatted(key, valueMap1));
-                stringBuilder.append("\n + %s:%s".formatted(key, valueMap2));
-            }
-        }
-
-        stringBuilder.append("\n}");
-
-        return stringBuilder.toString();
+        return formatter.format(difference);
     }
+
+    private static List<Map<String, Object>> differ(Map<String, Object> map1, Map<String, Object> map2) {
+        List<Map<String, Object>> result = new ArrayList<>();
+        Set<String> keysSet = new TreeSet<>(map1.keySet());
+        keysSet.addAll(map2.keySet());
+        for (String key :  keysSet) {
+            Map<String, Object> map = new LinkedHashMap<>();
+            if (map1.containsKey(key) && !map2.containsKey(key)) {
+                map.put("key", key);
+                map.put("oldValue", map1.get(key));
+                map.put("status", "removed");
+            } else if (!map1.containsKey(key) && map2.containsKey(key)) {
+                map.put("key", key);
+                map.put("newValue", map2.get(key));
+                map.put("status", "added");
+            } else if (!Objects.equals(map1.get(key), map2.get(key))) {
+                map.put("key", key);
+                map.put("oldValue", map1.get(key));
+                map.put("newValue", map2.get(key));
+                map.put("status", "updated");
+            } else {
+                map.put("key", key);
+                map.put("oldValue", map1.get(key));
+                map.put("status", "unchanged");
+            }
+            result.add(map);
+        }
+        return result;
+    }
+
 }
