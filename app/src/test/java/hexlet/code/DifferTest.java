@@ -3,6 +3,10 @@ package hexlet.code;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -212,137 +216,20 @@ class DifferTest {
 
     @Test
     @DisplayName("generate когда разные файлы JSON с форматированием json")
-    void generateDifferentJsonFilesJsonTest() {
+    void generateDifferentJsonFilesJsonTest() throws IOException {
+        var pathJson = Paths.get("src/test/resources/expJson1.json");
         var result = Differ.generate("file1.json", "file2.json", "json");
 
-        assertEquals("[ {\n"
-                + "  \"key\" : \"chars1\",\n"
-                + "  \"oldValue\" : [ \"a\", \"b\", \"c\" ],\n"
-                + "  \"status\" : \"unchanged\"\n"
-                + "}, {\n"
-                + "  \"key\" : \"chars2\",\n"
-                + "  \"oldValue\" : [ \"d\", \"e\", \"f\" ],\n"
-                + "  \"newValue\" : false,\n"
-                + "  \"status\" : \"updated\"\n"
-                + "}, {\n"
-                + "  \"key\" : \"checked\",\n"
-                + "  \"oldValue\" : false,\n"
-                + "  \"newValue\" : true,\n"
-                + "  \"status\" : \"updated\"\n"
-                + "}, {\n"
-                + "  \"key\" : \"default\",\n"
-                + "  \"oldValue\" : null,\n"
-                + "  \"newValue\" : [ \"value1\", \"value2\" ],\n"
-                + "  \"status\" : \"updated\"\n"
-                + "}, {\n"
-                + "  \"key\" : \"id\",\n"
-                + "  \"oldValue\" : 45,\n"
-                + "  \"newValue\" : null,\n"
-                + "  \"status\" : \"updated\"\n"
-                + "}, {\n"
-                + "  \"key\" : \"key1\",\n"
-                + "  \"oldValue\" : \"value1\",\n"
-                + "  \"status\" : \"removed\"\n"
-                + "}, {\n"
-                + "  \"key\" : \"key2\",\n"
-                + "  \"newValue\" : \"value2\",\n"
-                + "  \"status\" : \"added\"\n"
-                + "}, {\n"
-                + "  \"key\" : \"numbers1\",\n"
-                + "  \"oldValue\" : [ 1, 2, 3, 4 ],\n"
-                + "  \"status\" : \"unchanged\"\n"
-                + "}, {\n"
-                + "  \"key\" : \"numbers2\",\n"
-                + "  \"oldValue\" : [ 2, 3, 4, 5 ],\n"
-                + "  \"newValue\" : [ 22, 33, 44, 55 ],\n"
-                + "  \"status\" : \"updated\"\n"
-                + "}, {\n"
-                + "  \"key\" : \"numbers3\",\n"
-                + "  \"oldValue\" : [ 3, 4, 5 ],\n"
-                + "  \"status\" : \"removed\"\n"
-                + "}, {\n"
-                + "  \"key\" : \"numbers4\",\n"
-                + "  \"newValue\" : [ 4, 5, 6 ],\n"
-                + "  \"status\" : \"added\"\n"
-                + "}, {\n"
-                + "  \"key\" : \"obj1\",\n"
-                + "  \"newValue\" : {\n"
-                + "    \"nestedKey\" : \"value\",\n"
-                + "    \"isNested\" : true\n"
-                + "  },\n"
-                + "  \"status\" : \"added\"\n"
-                + "}, {\n"
-                + "  \"key\" : \"setting1\",\n"
-                + "  \"oldValue\" : \"Some value\",\n"
-                + "  \"newValue\" : \"Another value\",\n"
-                + "  \"status\" : \"updated\"\n"
-                + "}, {\n"
-                + "  \"key\" : \"setting2\",\n"
-                + "  \"oldValue\" : 200,\n"
-                + "  \"newValue\" : 300,\n"
-                + "  \"status\" : \"updated\"\n"
-                + "}, {\n"
-                + "  \"key\" : \"setting3\",\n"
-                + "  \"oldValue\" : true,\n"
-                + "  \"newValue\" : \"none\",\n"
-                + "  \"status\" : \"updated\"\n"
-                + "} ]", result);
+        assertEquals(Files.readString(pathJson), result);
     }
 
     @Test
     @DisplayName("generate когда одинаковые файлы JSON с форматированием json")
-    void generateEqualsJsonFilesJsonTest() {
+    void generateEqualsJsonFilesJsonTest() throws IOException {
+        var pathJson = Paths.get("src/test/resources/expJson2.json");
         var result = Differ.generate("file1.json", "file1.json", "json");
 
-        assertEquals("{[ {\n"
-                + "  \"key\" : \"chars1\",\n"
-                + "  \"oldValue\" : [ \"a\", \"b\", \"c\" ],\n"
-                + "  \"status\" : \"unchanged\"\n"
-                + "}, {\n"
-                + "  \"key\" : \"chars2\",\n"
-                + "  \"oldValue\" : [ \"d\", \"e\", \"f\" ],\n"
-                + "  \"status\" : \"unchanged\"\n"
-                + "}, {\n"
-                + "  \"key\" : \"checked\",\n"
-                + "  \"oldValue\" : false,\n"
-                + "  \"status\" : \"unchanged\"\n"
-                + "}, {\n"
-                + "  \"key\" : \"default\",\n"
-                + "  \"oldValue\" : null,\n"
-                + "  \"status\" : \"unchanged\"\n"
-                + "}, {\n"
-                + "  \"key\" : \"id\",\n"
-                + "  \"oldValue\" : 45,\n"
-                + "  \"status\" : \"unchanged\"\n"
-                + "}, {\n"
-                + "  \"key\" : \"key1\",\n"
-                + "  \"oldValue\" : \"value1\",\n"
-                + "  \"status\" : \"unchanged\"\n"
-                + "}, {\n"
-                + "  \"key\" : \"numbers1\",\n"
-                + "  \"oldValue\" : [ 1, 2, 3, 4 ],\n"
-                + "  \"status\" : \"unchanged\"\n"
-                + "}, {\n"
-                + "  \"key\" : \"numbers2\",\n"
-                + "  \"oldValue\" : [ 2, 3, 4, 5 ],\n"
-                + "  \"status\" : \"unchanged\"\n"
-                + "}, {\n"
-                + "  \"key\" : \"numbers3\",\n"
-                + "  \"oldValue\" : [ 3, 4, 5 ],\n"
-                + "  \"status\" : \"unchanged\"\n"
-                + "}, {\n"
-                + "  \"key\" : \"setting1\",\n"
-                + "  \"oldValue\" : \"Some value\",\n"
-                + "  \"status\" : \"unchanged\"\n"
-                + "}, {\n"
-                + "  \"key\" : \"setting2\",\n"
-                + "  \"oldValue\" : 200,\n"
-                + "  \"status\" : \"unchanged\"\n"
-                + "}, {\n"
-                + "  \"key\" : \"setting3\",\n"
-                + "  \"oldValue\" : true,\n"
-                + "  \"status\" : \"unchanged\"\n"
-                + "} ]}", result);
+        assertEquals(Files.readString(pathJson), result);
     }
 
     @Test
@@ -356,137 +243,20 @@ class DifferTest {
 
     @Test
     @DisplayName("generate когда разные файлы YML с форматированием json")
-    void generateDifferentYmlFilesJsonTest() {
+    void generateDifferentYmlFilesJsonTest() throws IOException {
+        var pathJson = Paths.get("src/test/resources/expJson3.json");
         var result = Differ.generate("filepath1.yml", "filepath2.yml", "json");
 
-        assertEquals("[ {\n"
-                + "  \"key\" : \"chars1\",\n"
-                + "  \"oldValue\" : [ \"a\", \"b\", \"c\" ],\n"
-                + "  \"status\" : \"unchanged\"\n"
-                + "}, {\n"
-                + "  \"key\" : \"chars2\",\n"
-                + "  \"oldValue\" : [ \"d\", \"e\", \"f\" ],\n"
-                + "  \"newValue\" : false,\n"
-                + "  \"status\" : \"updated\"\n"
-                + "}, {\n"
-                + "  \"key\" : \"checked\",\n"
-                + "  \"oldValue\" : false,\n"
-                + "  \"newValue\" : true,\n"
-                + "  \"status\" : \"updated\"\n"
-                + "}, {\n"
-                + "  \"key\" : \"default\",\n"
-                + "  \"oldValue\" : null,\n"
-                + "  \"newValue\" : [ \"value1\", \"value2\" ],\n"
-                + "  \"status\" : \"updated\"\n"
-                + "}, {\n"
-                + "  \"key\" : \"id\",\n"
-                + "  \"oldValue\" : 45,\n"
-                + "  \"newValue\" : null,\n"
-                + "  \"status\" : \"updated\"\n"
-                + "}, {\n"
-                + "  \"key\" : \"key1\",\n"
-                + "  \"oldValue\" : \"value1\",\n"
-                + "  \"status\" : \"removed\"\n"
-                + "}, {\n"
-                + "  \"key\" : \"key2\",\n"
-                + "  \"newValue\" : \"value2\",\n"
-                + "  \"status\" : \"added\"\n"
-                + "}, {\n"
-                + "  \"key\" : \"numbers1\",\n"
-                + "  \"oldValue\" : [ 1, 2, 3, 4 ],\n"
-                + "  \"status\" : \"unchanged\"\n"
-                + "}, {\n"
-                + "  \"key\" : \"numbers2\",\n"
-                + "  \"oldValue\" : [ 2, 3, 4, 5 ],\n"
-                + "  \"newValue\" : [ 22, 33, 44, 55 ],\n"
-                + "  \"status\" : \"updated\"\n"
-                + "}, {\n"
-                + "  \"key\" : \"numbers3\",\n"
-                + "  \"oldValue\" : [ 3, 4, 5 ],\n"
-                + "  \"status\" : \"removed\"\n"
-                + "}, {\n"
-                + "  \"key\" : \"numbers4\",\n"
-                + "  \"newValue\" : [ 4, 5, 6 ],\n"
-                + "  \"status\" : \"added\"\n"
-                + "}, {\n"
-                + "  \"key\" : \"obj1\",\n"
-                + "  \"newValue\" : {\n"
-                + "    \"nestedKey\" : \"value\",\n"
-                + "    \"isNested\" : true\n"
-                + "  },\n"
-                + "  \"status\" : \"added\"\n"
-                + "}, {\n"
-                + "  \"key\" : \"setting1\",\n"
-                + "  \"oldValue\" : \"Some value\",\n"
-                + "  \"newValue\" : \"Another value\",\n"
-                + "  \"status\" : \"updated\"\n"
-                + "}, {\n"
-                + "  \"key\" : \"setting2\",\n"
-                + "  \"oldValue\" : 200,\n"
-                + "  \"newValue\" : 300,\n"
-                + "  \"status\" : \"updated\"\n"
-                + "}, {\n"
-                + "  \"key\" : \"setting3\",\n"
-                + "  \"oldValue\" : true,\n"
-                + "  \"newValue\" : \"none\",\n"
-                + "  \"status\" : \"updated\"\n"
-                + "} ]", result);
+        assertEquals(Files.readString(pathJson), result);
     }
 
     @Test
     @DisplayName("generate когда одинаковые файлы YML с форматированием json")
-    void generateEqualsYmlFilesJsonTest() {
+    void generateEqualsYmlFilesJsonTest() throws IOException {
+        var pathJson = Paths.get("src/test/resources/expJson4.json");
         var result = Differ.generate("filepath1.yml", "filepath1.yml", "json");
 
-        assertEquals("[ {\n"
-                + "  \"key\" : \"chars1\",\n"
-                + "  \"oldValue\" : [ \"a\", \"b\", \"c\" ],\n"
-                + "  \"status\" : \"unchanged\"\n"
-                + "}, {\n"
-                + "  \"key\" : \"chars2\",\n"
-                + "  \"oldValue\" : [ \"d\", \"e\", \"f\" ],\n"
-                + "  \"status\" : \"unchanged\"\n"
-                + "}, {\n"
-                + "  \"key\" : \"checked\",\n"
-                + "  \"oldValue\" : false,\n"
-                + "  \"status\" : \"unchanged\"\n"
-                + "}, {\n"
-                + "  \"key\" : \"default\",\n"
-                + "  \"oldValue\" : null,\n"
-                + "  \"status\" : \"unchanged\"\n"
-                + "}, {\n"
-                + "  \"key\" : \"id\",\n"
-                + "  \"oldValue\" : 45,\n"
-                + "  \"status\" : \"unchanged\"\n"
-                + "}, {\n"
-                + "  \"key\" : \"key1\",\n"
-                + "  \"oldValue\" : \"value1\",\n"
-                + "  \"status\" : \"unchanged\"\n"
-                + "}, {\n"
-                + "  \"key\" : \"numbers1\",\n"
-                + "  \"oldValue\" : [ 1, 2, 3, 4 ],\n"
-                + "  \"status\" : \"unchanged\"\n"
-                + "}, {\n"
-                + "  \"key\" : \"numbers2\",\n"
-                + "  \"oldValue\" : [ 2, 3, 4, 5 ],\n"
-                + "  \"status\" : \"unchanged\"\n"
-                + "}, {\n"
-                + "  \"key\" : \"numbers3\",\n"
-                + "  \"oldValue\" : [ 3, 4, 5 ],\n"
-                + "  \"status\" : \"unchanged\"\n"
-                + "}, {\n"
-                + "  \"key\" : \"setting1\",\n"
-                + "  \"oldValue\" : \"Some value\",\n"
-                + "  \"status\" : \"unchanged\"\n"
-                + "}, {\n"
-                + "  \"key\" : \"setting2\",\n"
-                + "  \"oldValue\" : 200,\n"
-                + "  \"status\" : \"unchanged\"\n"
-                + "}, {\n"
-                + "  \"key\" : \"setting3\",\n"
-                + "  \"oldValue\" : true,\n"
-                + "  \"status\" : \"unchanged\"\n"
-                + "} ]", result);
+        assertEquals(Files.readString(pathJson), result);
     }
 
     @Test
