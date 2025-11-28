@@ -10,23 +10,26 @@ public final class Plain implements FormatterInterface {
         var result = new StringBuilder();
 
         for (var diff : differences) {
-            if ("unchanged".equals(diff.get("status"))) {
+            var status = diff.get("status");
+
+            if ("unchanged".equals(status)) {
                 continue;
             }
 
-            switch (diff.get("status").toString()) {
-                case "removed" ->
-                    result.append("Property '%s' was removed\n".formatted(diff.get("key")));
-                case "added" ->
-                    result.append("Property '%s' was added with value: %s\n"
-                            .formatted(diff.get("key"), getValue(diff.get("newValue"))));
-                case "updated" ->
-                    result.append("Property '%s' was updated. From %s to %s\n"
-                            .formatted(diff.get("key"),
-                                    getValue(diff.get("oldValue")),
-                                    getValue(diff.get("newValue"))));
-                default ->
-                    {}
+            if ("removed".equals(status)) {
+                result.append("Property '%s' was removed\n".formatted(diff.get("key")));
+            }
+
+            if ("added".equals(status)) {
+                result.append("Property '%s' was added with value: %s\n"
+                        .formatted(diff.get("key"), getValue(diff.get("newValue"))));
+            }
+
+            if ("updated".equals(status)) {
+                result.append("Property '%s' was updated. From %s to %s\n"
+                        .formatted(diff.get("key"),
+                                getValue(diff.get("oldValue")),
+                                getValue(diff.get("newValue"))));
             }
         }
 
