@@ -25,7 +25,6 @@ public final class Plain implements FormatterInterface {
                             .formatted(diff.get("key"),
                                     getValue(diff.get("oldValue")),
                                     getValue(diff.get("newValue"))));
-                default -> result.append("");
             }
         }
 

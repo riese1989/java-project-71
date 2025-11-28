@@ -14,7 +14,7 @@ import java.util.concurrent.Callable;
         version = "gendiff 1.0",
         synopsisHeading = "%nUsage:"
 )
-public final class App implements Callable<Void> {
+public final class App implements Callable<Integer> {
     @Parameters(index = "0", description = "path to first file", arity = "0..1", hideParamSyntax = true)
     private String filepath1;
 
@@ -39,13 +39,13 @@ public final class App implements Callable<Void> {
     }
 
     @Override
-    public Void call() throws Exception {
+    public Integer call() throws Exception {
         if (helpFlag) {
             CommandLine.usage(this, System.out);
         }
 
         System.out.println(Differ.generate(filepath1, filepath2, format));
 
-        return null;
+        return 0;
     }
 }

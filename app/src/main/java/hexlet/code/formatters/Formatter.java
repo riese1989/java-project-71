@@ -1,15 +1,13 @@
 package hexlet.code.formatters;
 
-import java.util.Map;
-
-import static java.util.Optional.ofNullable;
-
 public final class Formatter {
 
     public FormatterInterface getFormatter(String nameFormatter) {
-        var formaterMap = Map.of("stylish", new Stylish(), "plain", new Plain(), "json", new Json());
-        var formatter = formaterMap.get(nameFormatter);
-
-        return ofNullable(formatter).orElseThrow(() -> new IllegalArgumentException("Неизвестный вид форматтера"));
+        return switch (nameFormatter) {
+            case "stylish" -> new Stylish();
+            case "plain" -> new Plain();
+            case "json" -> new Json();
+            default -> throw new RuntimeException("Unexpected value: " + nameFormatter);
+        };
     }
 }
