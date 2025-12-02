@@ -17,7 +17,7 @@ public final class Stylish implements FormatterInterface {
                         .append(diffs.get("newValue")).append("\n");
                 case "unchanged" -> result.append("    ").append(diffs.get("key")).append(": ")
                         .append(diffs.get("oldValue")).append("\n");
-                default -> {
+                case "updated" -> {
                     result.append("  - ").append(diffs.get("key")).append(": ")
                             .append(diffs.get("oldValue")).append("\n");
                     result.append("  + ").append(diffs.get("key")).append(": ")

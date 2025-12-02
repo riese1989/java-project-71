@@ -8,13 +8,9 @@ import java.util.Map;
 
 public final class Json implements FormatterInterface {
     @Override
-    public String format(List<Map<String, Object>> differences) {
+    public String format(List<Map<String, Object>> differences) throws JsonProcessingException {
         var mapper = new ObjectMapper();
 
-        try {
-            return mapper.writerWithDefaultPrettyPrinter().writeValueAsString(differences);
-        } catch (JsonProcessingException e) {
-            throw new RuntimeException(e);
-        }
+        return mapper.writerWithDefaultPrettyPrinter().writeValueAsString(differences);
     }
 }

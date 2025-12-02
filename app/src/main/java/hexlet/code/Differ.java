@@ -14,8 +14,11 @@ public class Differ {
     }
 
     public static String generate(String filePath1, String filePath2, String format) throws IOException {
-        var map1 = Parser.parse(filePath1);
-        var map2 = Parser.parse(filePath2);
+        var contentFile1 = FileService.getContent(filePath1);
+        var contentFile2 = FileService.getContent(filePath2);
+        var map1 = Parser.parse(contentFile1);
+        var map2 = Parser.parse(contentFile2);
+
         var formatter = new Formatter().getFormatter(format);
 
         var difference = differ(map1, map2);

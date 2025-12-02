@@ -12,7 +12,17 @@ MinGW32-make lint
 ```
 
 Проект выводит разницу между двумя файлами, есть поддержка форматов yml и json. 
-Для запуска проекта используйте команды gradle installDist и ./build/install/app/bin/app <файл1> <файл2> -f <формат>
+
+## Для запуска проекта используйте команды 
+
+```bash
+gradle installDist
+```
+ и 
+ 
+```bash
+./build/install/app/bin/app <файл1> <файл2> -f <формат>
+```
 
 ![img.png](img.png)
 ![img_1.png](img_1.png)

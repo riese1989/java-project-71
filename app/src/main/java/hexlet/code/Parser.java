@@ -7,18 +7,9 @@ import java.io.IOException;
 import java.util.Map;
 
 public class Parser {
-    public static Map parse(String filePath) throws IOException {
-        var mapper = chooseMapper(filePath);
-        var file = FileService.getFile(filePath);
+    public static Map parse(String content) throws IOException {
+        var mapper =  content.trim().startsWith("{") ? new ObjectMapper() : new YAMLMapper();
 
-        return mapper.readValue(file, Map.class);
-    }
-
-    private static ObjectMapper chooseMapper(String filePath) {
-        if ("json".equals(filePath.split("\\.")[1])) {
-            return new ObjectMapper();
-        }
-
-        return new YAMLMapper();
+        return mapper.readValue(content, Map.class);
     }
 }

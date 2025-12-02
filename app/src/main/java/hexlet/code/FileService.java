@@ -1,15 +1,12 @@
 package hexlet.code;
 
 import java.io.File;
+import java.io.IOException;
+import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 
 public class FileService {
-    public static File getFile(String filePath) {
-        var resolvedPath = resolvePath(filePath);
-
-        return resolvedPath.toFile();
-    }
     private static Path resolvePath(String filePath) {
         var baseDir = Paths.get("build", "resources", "main");
         var path = baseDir.resolve(filePath).normalize();
@@ -19,5 +16,11 @@ public class FileService {
         }
 
         return path;
+    }
+
+    public static String getContent(String filePath) throws IOException {
+        var path = resolvePath(filePath);
+
+        return new String(Files.readAllBytes(path));
     }
 }
