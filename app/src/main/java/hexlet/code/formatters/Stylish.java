@@ -12,26 +12,34 @@ public final class Stylish implements FormatterInterface {
         for (var diffs : differences) {
             var status = diffs.get("status").toString();
 
-            if ("removed".equals(status)) {
-                result.append("  - ").append(diffs.get("key")).append(": ")
-                        .append(diffs.get("oldValue")).append("\n");
-            }
+            switch (status) {
+                case "removed": {
+                    result.append("  - ").append(diffs.get("key")).append(": ")
+                            .append(diffs.get("oldValue")).append("\n");
 
-            if ("added".equals(status)) {
-                result.append("  + ").append(diffs.get("key")).append(": ")
-                        .append(diffs.get("newValue")).append("\n");
-            }
+                    break;
+                }
+                case "added": {
+                    result.append("  + ").append(diffs.get("key")).append(": ")
+                            .append(diffs.get("newValue")).append("\n");
 
-            if ("unchanged".equals(status)) {
-                result.append("    ").append(diffs.get("key")).append(": ")
-                        .append(diffs.get("oldValue")).append("\n");
-            }
+                    break;
+                }
+                case "unchanged": {
+                    result.append("    ").append(diffs.get("key")).append(": ")
+                            .append(diffs.get("oldValue")).append("\n");
 
-            if ("updated".equals(status)) {
-                result.append("  - ").append(diffs.get("key")).append(": ")
-                        .append(diffs.get("oldValue")).append("\n");
-                result.append("  + ").append(diffs.get("key")).append(": ")
-                        .append(diffs.get("newValue")).append("\n");
+                    break;
+                }
+                case "updated": {
+                    result.append("  - ").append(diffs.get("key")).append(": ")
+                            .append(diffs.get("oldValue")).append("\n");
+                    result.append("  + ").append(diffs.get("key")).append(": ")
+                            .append(diffs.get("newValue")).append("\n");
+
+                    break;
+                }
+                default: throw new RuntimeException("Unexpected status: " + status);
             }
         }
 

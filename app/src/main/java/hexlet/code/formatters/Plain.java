@@ -10,26 +10,32 @@ public final class Plain implements FormatterInterface {
         var result = new StringBuilder();
 
         for (var diff : differences) {
-            var status = diff.get("status");
+            var status = diff.get("status").toString();
 
-            if ("unchanged".equals(status)) {
-                continue;
-            }
+            switch (status) {
+                case "unchanged":
+                    continue;
+                case "removed": {
+                    result.append("Property '%s' was removed\n".formatted(diff.get("key")));
 
-            if ("removed".equals(status)) {
-                result.append("Property '%s' was removed\n".formatted(diff.get("key")));
-            }
+                    break;
+                }
+                case "added": {
+                    result.append("Property '%s' was added with value: %s\n"
+                            .formatted(diff.get("key"), getValue(diff.get("newValue"))));
 
-            if ("added".equals(status)) {
-                result.append("Property '%s' was added with value: %s\n"
-                        .formatted(diff.get("key"), getValue(diff.get("newValue"))));
-            }
+                    break;
+                }
+                case "updated": {
+                    result.append("Property '%s' was updated. From %s to %s\n"
+                            .formatted(diff.get("key"),
+                                    getValue(diff.get("oldValue")),
+                                    getValue(diff.get("newValue"))));
+                    break;
+                }
+                default:
+                    throw new RuntimeException("Unexpected status: " + status);
 
-            if ("updated".equals(status)) {
-                result.append("Property '%s' was updated. From %s to %s\n"
-                        .formatted(diff.get("key"),
-                                getValue(diff.get("oldValue")),
-                                getValue(diff.get("newValue"))));
             }
         }
 
