@@ -10,21 +10,29 @@ public final class Stylish implements FormatterInterface {
         var result = new StringBuilder("{\n");
 
         for (var diffs : differences) {
-            switch (diffs.get("status").toString()) {
-                case "removed" -> result.append("  - ").append(diffs.get("key")).append(": ")
+            var status = diffs.get("status").toString();
+
+            if ("removed".equals(status)) {
+                result.append("  - ").append(diffs.get("key")).append(": ")
                         .append(diffs.get("oldValue")).append("\n");
-                case "added" -> result.append("  + ").append(diffs.get("key")).append(": ")
-                        .append(diffs.get("newValue")).append("\n");
-                case "unchanged" -> result.append("    ").append(diffs.get("key")).append(": ")
-                        .append(diffs.get("oldValue")).append("\n");
-                case "updated" -> {
-                    result.append("  - ").append(diffs.get("key")).append(": ")
-                            .append(diffs.get("oldValue")).append("\n");
-                    result.append("  + ").append(diffs.get("key")).append(": ")
-                            .append(diffs.get("newValue")).append("\n");
-                }
             }
 
+            if ("added".equals(status)) {
+                result.append("  + ").append(diffs.get("key")).append(": ")
+                        .append(diffs.get("newValue")).append("\n");
+            }
+
+            if ("unchanged".equals(status)) {
+                result.append("    ").append(diffs.get("key")).append(": ")
+                        .append(diffs.get("oldValue")).append("\n");
+            }
+
+            if ("updated".equals(status)) {
+                result.append("  - ").append(diffs.get("key")).append(": ")
+                        .append(diffs.get("oldValue")).append("\n");
+                result.append("  + ").append(diffs.get("key")).append(": ")
+                        .append(diffs.get("newValue")).append("\n");
+            }
         }
 
         result.append("}");
