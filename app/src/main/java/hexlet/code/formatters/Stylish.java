@@ -13,32 +13,28 @@ public final class Stylish implements FormatterInterface {
             var status = diffs.get("status").toString();
 
             switch (status) {
-                case "removed": {
+                case "removed":
                     result.append("  - ").append(diffs.get("key")).append(": ")
                             .append(diffs.get("oldValue")).append("\n");
 
                     break;
-                }
-                case "added": {
+                case "added":
                     result.append("  + ").append(diffs.get("key")).append(": ")
                             .append(diffs.get("newValue")).append("\n");
 
                     break;
-                }
-                case "unchanged": {
+                case "unchanged":
                     result.append("    ").append(diffs.get("key")).append(": ")
                             .append(diffs.get("oldValue")).append("\n");
 
                     break;
-                }
-                case "updated": {
+                case "updated":
                     result.append("  - ").append(diffs.get("key")).append(": ")
                             .append(diffs.get("oldValue")).append("\n");
                     result.append("  + ").append(diffs.get("key")).append(": ")
                             .append(diffs.get("newValue")).append("\n");
 
                     break;
-                }
                 default: throw new RuntimeException("Unexpected status: " + status);
             }
         }

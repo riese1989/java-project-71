@@ -15,27 +15,23 @@ public final class Plain implements FormatterInterface {
             switch (status) {
                 case "unchanged":
                     continue;
-                case "removed": {
+                case "removed":
                     result.append("Property '%s' was removed\n".formatted(diff.get("key")));
 
                     break;
-                }
-                case "added": {
+                case "added":
                     result.append("Property '%s' was added with value: %s\n"
                             .formatted(diff.get("key"), getValue(diff.get("newValue"))));
 
                     break;
-                }
-                case "updated": {
+                case "updated":
                     result.append("Property '%s' was updated. From %s to %s\n"
                             .formatted(diff.get("key"),
                                     getValue(diff.get("oldValue")),
                                     getValue(diff.get("newValue"))));
                     break;
-                }
                 default:
                     throw new RuntimeException("Unexpected status: " + status);
-
             }
         }
 
