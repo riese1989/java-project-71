@@ -17,9 +17,11 @@ public class FileService {
         return path;
     }
 
-    public static String getContent(String filePath) throws IOException {
+    public static File getFile(String filePath) throws IOException {
         var path = resolvePath(filePath);
+        var content = new String(Files.readAllBytes(path));
+        var extension = filePath.substring(filePath.indexOf(".") + 1);
 
-        return new String(Files.readAllBytes(path));
+        return new File(content, extension);
     }
 }
