@@ -7,13 +7,13 @@ import java.io.IOException;
 import java.util.Map;
 
 public class Parser {
-    public static Map parse(File file) throws IOException {
-        var mapper = switch (file.extension()) {
+    public static Map parse(String content, String formatData) throws IOException {
+        var mapper = switch (formatData) {
             case "yaml", "yml" -> new YAMLMapper();
             case "json" -> new JsonMapper();
-            default -> throw new IllegalStateException("Unexpected value: " + file.extension());
+            default -> throw new IllegalStateException("Unexpected value: " + formatData);
         };
 
-        return mapper.readValue(file.content(), Map.class);
+        return mapper.readValue(content, Map.class);
     }
 }
